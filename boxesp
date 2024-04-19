@@ -9,14 +9,7 @@ local Window = lib:MakeWindow({
 -- MAIN PAGE
 local Main = Window:MakeTab({Name = "Main", Icon = "Home"})
 local Section = Main:AddSection({"Main Section"})
-  
-local Toggle = Tab:AddToggle({
-    Name = "Esp",
-    Default = false,
-    Callback = function(Value)
-      
-    end
-  })
+
   
 
 local Button = Main:AddButton({

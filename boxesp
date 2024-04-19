@@ -369,3 +369,146 @@ TargetVelv5.Velocity = Vector3.new(TargetVelv5.Velocity.X, math.abs(TargetVelv5.
 end)
   end
 })
+
+local Toggle = Tab:AddToggle({
+    Name = "Esp",
+    Default = false,
+    Callback = function(Value)
+    
+        getgenv().Toggle = true 
+local PlayerName = "Name" -- wenn du display name willst mach "DisplayName" und wenn username mach "Name" Ok? Ok
+ 
+
+local P = game:GetService("Players")
+local LP = P.LocalPlayer
+ 
+
+local DB = false
+ 
+
+while task.wait() do
+    if not getgenv().Toggle then
+        break
+    end
+    if DB then 
+        return 
+    end
+    DB = true
+ 
+    pcall(function()
+        for i,v in pairs(P:GetChildren()) do
+            if v:IsA("Player") then
+                if v ~= LP then
+                    if v.Character then
+ 
+                        local pos = math.floor(((LP.Character:FindFirstChild("HumanoidRootPart")).Position - (v.Character:FindFirstChild("HumanoidRootPart")).Position).magnitude)
+                       
+ 
+                        if v.Character:FindFirstChild("Esp") == nil and v.Character:FindFirstChild("Icon") == nil and getgenv().TC == false then
+                            
+                            local ESP = Instance.new("Highlight", v.Character)
+ 
+                            ESP.Name = "Esp" 
+                            ESP.Adornee = v.Character
+                            ESP.Archivable = true
+                            ESP.Enabled = true
+                            ESP.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+                            ESP.FillColor = v.TeamColor.Color
+                            ESP.FillTransparency = 0.5
+                            ESP.OutlineColor = Color3.fromRGB(255, 255, 255)
+                            ESP.OutlineTransparency = 0
+ 
+                            
+                            local Icon = Instance.new("BillboardGui", v.Character)
+                            local ESPText = Instance.new("TextLabel")
+ 
+                            Icon.Name = "Icon"
+                            Icon.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+                            Icon.Active = true
+                            Icon.AlwaysOnTop = true
+                            Icon.ExtentsOffset = Vector3.new(0, 1, 0)
+                            Icon.LightInfluence = 1.000
+                            Icon.Size = UDim2.new(0, 800, 0, 50)
+ 
+                            ESPText.Name = "ESP Text"
+                            ESPText.Parent = Icon
+                            ESPText.BackgroundColor3 = v.TeamColor.Color
+                            ESPText.BackgroundTransparency = 1.000
+                            ESPText.Size = UDim2.new(0, 800, 0, 50)
+                            ESPText.Font = Enum.Font.SciFi
+                            ESPText.Text = v[PlayerName].." | Distance: "..pos
+                            ESPText.TextColor3 = v.TeamColor.Color
+                            ESPText.TextSize = 10.800
+                            ESPText.TextWrapped = true
+                        else
+                            if v.TeamColor ~= LP.TeamColor and v.Character:FindFirstChild("Esp") == nil and v.Character:FindFirstChild("Icon") == nil and getgenv().TC == true then
+                                local ESP = Instance.new("Highlight", v.Character)
+ 
+                                ESP.Name = "Esp"
+                                ESP.Adornee = v.Character
+                                ESP.Archivable = true
+                                ESP.Enabled = true
+                                ESP.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+                                ESP.FillColor = v.TeamColor.Color
+                                ESP.FillTransparency = 0.5
+                                ESP.OutlineColor = Color3.fromRGB(255, 255, 255)
+                                ESP.OutlineTransparency = 0
+ 
+                                local Icon = Instance.new("BillboardGui", v.Character)
+                                local ESPText = Instance.new("TextLabel")
+ 
+                                Icon.Name = "Icon"
+                                Icon.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+                                Icon.Active = true
+                                Icon.AlwaysOnTop = true
+                                Icon.ExtentsOffset = Vector3.new(0, 1, 0)
+                                Icon.LightInfluence = 1.000
+                                Icon.Size = UDim2.new(0, 800, 0, 50)
+ 
+                                ESPText.Name = "ESP Text"
+                                ESPText.Parent = Icon
+                                ESPText.BackgroundColor3 = v.TeamColor.Color
+                                ESPText.BackgroundTransparency = 1.000
+                                ESPText.Size = UDim2.new(0, 800, 0, 50)
+                                ESPText.Font = Enum.Font.SciFi
+                                ESPText.Text = v[PlayerName].." | Distance: "..pos
+                                ESPText.TextColor3 = v.TeamColor.Color
+                                ESPText.TextSize = 10.800
+                                ESPText.TextWrapped = true
+                            else
+                                if not v.Character:FindFirstChild("Esp").FillColor == v.TeamColor.Color and not v.Character:FindFirstChild("Icon").TextColor3 == v.TeamColor.Color then
+                                    v.Character:FindFirstChild("Esp").FillColor = v.TeamColor.Color
+                                    v.Character:FindFirstChild("Icon").TextColor3 = v.TeamColor.Color
+                                else
+                                    if v.Character:FindFirstChild("Esp").Enabled == false and v.Character:FindFirstChild("Icon").Enabled == false then
+                                        v.Character:FindFirstChild("Esp").Enabled = true
+                                        v.Character:FindFirstChild("Icon").Enabled = true
+                                    else
+                                        if v.Character:FindFirstChild("Icon") then
+                                            v.Character:FindFirstChild("Icon")["ESP Text"].Text = v[PlayerName].." | Distance: "..pos
+                                        end
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end
+    end)
+ 
+    wait()
+ 
+    DB = false
+end
+      
+    end
+  })
+  
+  --[[
+    Toggle:Set(false)
+    
+    Toggle:Callback(function(Value)
+    
+    end)
+  ]]

@@ -1,27 +1,13 @@
---[[
-    WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
-]]
---//Toggle\\--
-getgenv().Toggle = true -- This toggles the esp, turning it to false will turn it off
-getgenv().TC = false -- This toggles team check, turning it on will turn on team check
-local PlayerName = "Name" -- You can decide if you want the Player's name to be a display name which is "DisplayName", or username which is "Name"
+
+getgenv().Toggle = true 
+getgenv().TC = false 
+local PlayerName = "Name" -- Mach "DisplayName" wenn du display name sehen willst und mach "Name" wenn username
  
---//Variables\\--
 local P = game:GetService("Players")
 local LP = P.LocalPlayer
  
---//Debounce\\--
 local DB = false
  
---//Notification\\--
-game.StarterGui:SetCore("SendNotification", {
-    Title = "Notification",
-    Text = "Best ESP by.ExluZive" ,
-    Button1 = "Shut Up",
-    Duration = math.huge
-})
- 
---//Loop\\--
 while task.wait() do
     if not getgenv().Toggle then
         break

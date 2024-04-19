@@ -375,7 +375,6 @@ local Toggle = Main:AddToggle({
     Default = false,
     Callback = function(Value)
     
-        getgenv().Toggle = true 
 getgenv().TC = false 
 local PlayerName = "Name" -- Mach "DisplayName" wenn du display name sehen willst und mach "Name" wenn username
  

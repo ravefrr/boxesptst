@@ -1,9 +1,33 @@
-getgenv().enabled = true --Toggle on/off
-getgenv().filluseteamcolor = true --Toggle fill color using player team color on/off
-getgenv().outlineuseteamcolor = true --Toggle outline color using player team color on/off
-getgenv().fillcolor = Color3.new(0, 0, 0) --Change fill color, no need to edit if using team color
-getgenv().outlinecolor = Color3.new(1, 1, 1) --Change outline color, no need to edit if using team color
-getgenv().filltrans = 0 --Change fill transparency
-getgenv().outlinetrans = 0 --Change outline transparency
+-- create a ScreenGui object to hold the button
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.CoreGui
  
-loadstring(game:HttpGet("https://raw.githubusercontent.com/zntly/highlight-esp/main/esp.lua"))()
+-- create a TextButton object to act as the toggle button
+local button = Instance.new("TextButton")
+button.Text = "Enable Player ESP"
+button.Position = UDim2.new(0, 0, 0, 0)
+button.Size = UDim2.new(0, 200, 0, 50)
+button.Parent = gui
+ 
+-- create a boolean variable to track the button state
+local playerESPToggled = false
+ 
+-- create a function that will be called when the button is clicked
+local function onButtonClicked()
+    playerESPToggled = not playerESPToggled -- toggle the boolean variable
+    if playerESPToggled then
+        -- turn on the Player ESP feature
+        print("Player ESP turned on")
+        button.Text = "Disable Player ESP"
+        loadstring(game:HttpGet('https://pastebin.com/raw/02JKqvcf'))()
+    else
+        -- turn off the Player ESP feature
+        print("Player ESP turned off")
+        button.Text = "Enable Player ESP"
+        loadstring(game:HttpGet('https://pastebin.com/raw/WarZjgAi'))()
+    end
+end
+ 
+-- connect the button's Click event to the onButtonClicked function
+button.MouseButton1Click:Connect(onButtonClicked)
+ 

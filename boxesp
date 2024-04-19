@@ -1,9 +1,9 @@
 local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RedzLibV4/main/Source.lua"))()
 local Window = lib:MakeWindow({
-    Title = "Tw and Rave Dh : V1",
-    SubTitle = "by : TWRAVE",
-    LoadText = "TwRaveHub",
-    Flags = "TwRave Hub | Example.lua"
+  Title = "Tw and Rave Dh : V1",
+  SubTitle = "by : TWRAVE",
+  LoadText = "TwRaveHub",
+  Flags = "TwRave Hub | Example.lua"
 })
 
 -- MAIN PAGE

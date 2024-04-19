@@ -370,7 +370,7 @@ end)
   end
 })
 
-local Toggle = Tab:AddToggle({
+local Toggle = Main:AddToggle({
     Name = "Esp",
     Default = false,
     Callback = function(Value)

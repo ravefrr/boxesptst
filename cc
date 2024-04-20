@@ -1,8 +1,8 @@
 local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 -- check if the ScreenGui already exists, if it does, destroy it and remove BillboardGuis
-if playerGui:FindFirstChild("TW.RV") then
-    playerGui:FindFirstChild("TW.RV"):Destroy()
+if playerGui:FindFirstChild("TWRV") then
+    playerGui:FindFirstChild("TWRV"):Destroy()
 
     for _, player in ipairs(game.Players:GetPlayers()) do
         local billboardGui = player.Character and player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("PlayerBillboardGui")
@@ -14,7 +14,7 @@ end
 
 -- create ScreenGui
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "TW.RV"
+screenGui.Name = "TWRV"
 screenGui.Parent = playerGui
 screenGui.DisplayOrder = 1
 
@@ -31,72 +31,25 @@ holder.ClipsDescendants = true -- clip content to the frame
 holder.AnchorPoint = Vector2.new(0.5, 0.5) -- set anchor point to center
 holder.Position = UDim2.new(0.5, 0, 0.5, 0) -- reposition after setting anchor point
 holder.ZIndex = 2 -- set ZIndex to ensure it's above other GUI elements
-holder.Draggable = true -- makes the frame draggable
-holder.Active = true
 
 -- Create rounded corners for the frame
 local corner = Instance.new("UICorner")
 corner.CornerRadius = UDim.new(0, 10)
 corner.Parent = holder
 
--- create TopBar to hold close and minimize buttons
-local topBar = Instance.new("Frame")
-topBar.Name = "TopBar"
-topBar.Parent = holder
-topBar.Size = UDim2.new(1, 0, 0, 30) -- size of the top bar
-topBar.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- dark grey background for the top bar
-topBar.BackgroundTransparency = 0.5 -- semi-transparent
-topBar.BorderSizePixel = 0 -- remove border
-topBar.Position = UDim2.new(0, 0, 0, 0) -- align to the top of the holder
-topBar.ZIndex = 3 -- ensure it's above other GUI elements
-
--- create TextLabel for the title
+-- create TextLabel
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Name = "TitleLabel"
-titleLabel.Text = "TW.RV"
+titleLabel.Text = "TWRV"
 titleLabel.TextScaled = true
-titleLabel.Parent = topBar
-titleLabel.Size = UDim2.new(1, -60, 1, 0) -- fills the top bar, excluding button space
-titleLabel.Position = UDim2.new(0, 30, 0, 0) -- align to the left with some padding
-titleLabel.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- dark grey background
+titleLabel.Parent = holder
+titleLabel.Size = UDim2.new(1, 0, 0.15, 0) -- fills 15% of the frame
+titleLabel.BackgroundColor3 = Color3.fromRGB(220, 20, 60) -- red background
 titleLabel.TextColor3 = Color3.new(1, 1, 1) -- white text
 titleLabel.BackgroundTransparency = 0.5 -- semi-transparent
 titleLabel.BorderSizePixel = 0 -- remove border
 titleLabel.Font = Enum.Font.GothamSemibold -- set font
-titleLabel.TextSize = 20 -- set text size
-titleLabel.ZIndex = 3 -- ensure it's above other GUI elements
-
--- create minimize button
-local minimizeButton = Instance.new("TextButton")
-minimizeButton.Name = "MinimizeButton"
-minimizeButton.Text = "▼" -- Arrow down symbol
-minimizeButton.Parent = topBar
-minimizeButton.Size = UDim2.new(0, 30, 1, 0) -- size of the minimize button
-minimizeButton.Position = UDim2.new(1, -30, 0, 0) -- align to the right of the top bar
-minimizeButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- dark grey background for the minimize button
-minimizeButton.TextColor3 = Color3.new(1, 1, 1) -- white text color
-minimizeButton.BackgroundTransparency = 0.5 -- semi-transparent
-minimizeButton.TextScaled = true -- enable text scaling for the button
-minimizeButton.BorderSizePixel = 0 -- remove border
-minimizeButton.Font = Enum.Font.Gotham -- set font
-minimizeButton.TextSize = 18 -- set text size
-minimizeButton.ZIndex = 3 -- ensure it's above other GUI elements
-
--- create TextButton for closing the GUI
-local closeButton = Instance.new("TextButton")
-closeButton.Name = "CloseButton"
-closeButton.Text = "X"
-closeButton.Parent = topBar
-closeButton.Size = UDim2.new(0, 30, 1, 0) -- size of the close button
-closeButton.Position = UDim2.new(1, -60, 0, 0) -- align to the right of the minimize button
-closeButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- dark grey background for the close button
-closeButton.TextColor3 = Color3.new(1, 1, 1) -- white text color
-closeButton.BackgroundTransparency = 0.5 -- semi-transparent
-closeButton.TextScaled = true -- enable text scaling for the button
-closeButton.BorderSizePixel = 0 -- remove border
-closeButton.Font = Enum.Font.Gotham -- set font
-closeButton.TextSize = 18 -- set text size
-closeButton.ZIndex = 3 -- ensure it's above other GUI elements
+titleLabel.TextSize = 36 -- set text size
 
 -- create TextLabel for additional message
 local infoLabel = Instance.new("TextLabel")
@@ -105,13 +58,53 @@ infoLabel.Text = "IF YOU CLOSE THIS TAB, YOU NEED TO REJOIN FOR ESP TO WORK AGAI
 infoLabel.TextScaled = true
 infoLabel.Parent = holder
 infoLabel.Size = UDim2.new(1, 0, 0.15, 0) -- fills 15% of the frame
-infoLabel.Position = UDim2.new(0, 0, 0.15, 0) -- position below the top bar
+infoLabel.Position = UDim2.new(0, 0, 0.15, 0) -- position below the titleLabel
 infoLabel.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- dark grey background
 infoLabel.TextColor3 = Color3.new(1, 1, 1) -- white text
 infoLabel.BackgroundTransparency = 0.5 -- semi-transparent
 infoLabel.BorderSizePixel = 0 -- remove border
 infoLabel.Font = Enum.Font.Gotham -- set font
 infoLabel.TextSize = 18 -- set text size
+
+-- create TextButton for closing the GUI
+local closeButton = Instance.new("TextButton")
+closeButton.Name = "CloseButton"
+closeButton.Text = "X"
+closeButton.Parent = holder
+closeButton.Size = UDim2.new(0, 20, 0, 20) -- size of the button
+closeButton.Position = UDim2.new(1, -45, 0, 5) -- position at the top-right corner with a small offset
+closeButton.BackgroundColor3 = Color3.fromRGB(220, 20, 60) -- red background for the close button
+closeButton.TextColor3 = Color3.new(1, 1, 1) -- white text color
+closeButton.BackgroundTransparency = 0.5 -- semi-transparent
+closeButton.TextScaled = true -- enable text scaling for the button
+closeButton.BorderSizePixel = 0 -- remove border
+closeButton.Font = Enum.Font.Gotham -- set font
+closeButton.TextSize = 18 -- set text size
+
+-- Create rounded corners for the close button
+local closeButtonCorner = Instance.new("UICorner")
+closeButtonCorner.CornerRadius = UDim.new(0, 10)
+closeButtonCorner.Parent = closeButton
+
+-- create TextButton for minimizing the GUI
+local minimizeButton = Instance.new("TextButton")
+minimizeButton.Name = "MinimizeButton"
+minimizeButton.Text = "-"
+minimizeButton.Parent = holder
+minimizeButton.Size = UDim2.new(0, 20, 0, 20) -- size of the button
+minimizeButton.Position = UDim2.new(1, -70, 0, 5) -- position next to the close button
+minimizeButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- dark grey background for the minimize button
+minimizeButton.TextColor3 = Color3.new(1, 1, 1) -- white text color
+minimizeButton.BackgroundTransparency = 0.5 -- semi-transparent
+minimizeButton.TextScaled = true -- enable text scaling for the button
+minimizeButton.BorderSizePixel = 0 -- remove border
+minimizeButton.Font = Enum.Font.Gotham -- set font
+minimizeButton.TextSize = 18 -- set text size
+
+-- Create rounded corners for the minimize button
+local minimizeButtonCorner = Instance.new("UICorner")
+minimizeButtonCorner.CornerRadius = UDim.new(0, 10)
+minimizeButtonCorner.Parent = minimizeButton
 
 -- create TextLabel for Status
 local statusLabel = Instance.new("TextLabel")
@@ -202,9 +195,7 @@ end)
 
 -- Function to handle the close button click event
 local function onCloseButtonClicked()
-    if playerGui:FindFirstChild("TW.RV") then
-        playerGui:FindFirstChild("TW.RV"):Destroy() -- Destroy the entire GUI when the close button is clicked
-    end
+    playerGui.TWRV:Destroy() -- Destroy the entire GUI when the close button is clicked
 end
 
 closeButton.MouseButton1Click:Connect(onCloseButtonClicked)
@@ -213,36 +204,10 @@ closeButton.MouseButton1Click:Connect(onCloseButtonClicked)
 local isMinimized = false
 local function onMinimizeButtonClicked()
     isMinimized = not isMinimized
-    if isMinimized then
-        holder.Size = UDim2.new(0, 300, 0, 30)
-    else
-        holder.Size = UDim2.new(0, 300, 0, 200)
-    end
+    holder.Visible = not isMinimized
 end
 
 minimizeButton.MouseButton1Click:Connect(onMinimizeButtonClicked)
-
--- Function to handle dragging the GUI
-local isDragging = false
-local dragStartOffset = nil
-
-holder.InputBegan:Connect(function(input)
-    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
-        isDragging = true
-        dragStartOffset = input.Position - holder.Position
-        input.Changed:Connect(function()
-            if input.UserInputState == Enum.UserInputState.End then
-                isDragging = false
-            end
-        end)
-    end
-end)
-
-holder.InputChanged:Connect(function(input)
-    if isDragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-        holder.Position = UDim2.new(0, input.Position.X - dragStartOffset.X, 0, input.Position.Y - dragStartOffset.Y)
-    end
-end)
 
 -- Now, you can add functionality to the button, for example:
 local function onButtonClicked()

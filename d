@@ -204,10 +204,11 @@ closeButton.MouseButton1Click:Connect(onCloseButtonClicked)
 local isMinimized = false
 local function onMinimizeButtonClicked()
     isMinimized = not isMinimized
-    local targetPosition = isMinimized and UDim2.new(0.5, -150, 0.5, -100) or UDim2.new(0.5, -150, 0.9, -100)
-    local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out, 0, false, 0)
-    local tween = game:GetService("TweenService"):Create(holder, tweenInfo, {Position = targetPosition})
-    tween:Play()
+    for _, child in ipairs(holder:GetChildren()) do
+        if child.Name ~= "MinimizeButton" then
+            child.Visible = not isMinimized
+        end
+    end
 end
 
 minimizeButton.MouseButton1Click:Connect(onMinimizeButtonClicked)

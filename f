@@ -68,7 +68,7 @@ closeButton.TextSize = 18 -- set text size
 
 -- Function to handle the close button click event
 local function onCloseButtonClicked()
-    playerGui.TW.RV:Destroy() -- Destroy the entire GUI when the close button is clicked
+    screenGui:Destroy() -- Destroy the entire ScreenGui when the close button is clicked
 end
 
 closeButton.MouseButton1Click:Connect(onCloseButtonClicked)

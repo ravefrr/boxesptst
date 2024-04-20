@@ -48,7 +48,7 @@ titleLabel.BackgroundColor3 = Color3.fromRGB(220, 20, 60) -- red background
 titleLabel.TextColor3 = Color3.new(1, 1, 1) -- white text
 titleLabel.BackgroundTransparency = 0.5 -- semi-transparent
 titleLabel.BorderSizePixel = 0 -- remove border
-titleLabel.Font = Enum.Font.GothamSemibold -- set font
+titleLabel.Font = Enum.Font.BurbankBigCd -- set font to "Burbank Big Cd Bk"
 titleLabel.TextSize = 36 -- set text size
 
 -- create TextLabel for additional message
@@ -63,7 +63,7 @@ infoLabel.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- dark grey background
 infoLabel.TextColor3 = Color3.new(1, 1, 1) -- white text
 infoLabel.BackgroundTransparency = 0.5 -- semi-transparent
 infoLabel.BorderSizePixel = 0 -- remove border
-infoLabel.Font = Enum.Font.Gotham -- set font
+infoLabel.Font = Enum.Font.BurbankBigCd -- set font to "Burbank Big Cd Bk"
 infoLabel.TextSize = 18 -- set text size
 
 -- create minimize button
@@ -78,7 +78,7 @@ minimizeButton.TextColor3 = Color3.new(1, 1, 1) -- white text color
 minimizeButton.BackgroundTransparency = 0.5 -- semi-transparent
 minimizeButton.TextScaled = true -- enable text scaling for the button
 minimizeButton.BorderSizePixel = 0 -- remove border
-minimizeButton.Font = Enum.Font.Gotham -- set font
+minimizeButton.Font = Enum.Font.BurbankBigCd -- set font to "Burbank Big Cd Bk"
 minimizeButton.TextSize = 18 -- set text size
 
 -- Create rounded corners for the minimize button
@@ -98,7 +98,7 @@ closeButton.TextColor3 = Color3.new(1, 1, 1) -- white text color
 closeButton.BackgroundTransparency = 0.5 -- semi-transparent
 closeButton.TextScaled = true -- enable text scaling for the button
 closeButton.BorderSizePixel = 0 -- remove border
-closeButton.Font = Enum.Font.Gotham -- set font
+closeButton.Font = Enum.Font.BurbankBigCd -- set font to "Burbank Big Cd Bk"
 closeButton.TextSize = 18 -- set text size
 
 -- Create rounded corners for the close button
@@ -117,7 +117,7 @@ statusLabel.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- dark grey backgroun
 statusLabel.TextColor3 = Color3.new(1, 1, 1) -- white text
 statusLabel.BackgroundTransparency = 0.5 -- semi-transparent
 statusLabel.BorderSizePixel = 0 -- remove border
-statusLabel.Font = Enum.Font.GothamSemibold -- set font
+statusLabel.Font = Enum.Font.BurbankBigCd -- set font to "Burbank Big Cd Bk"
 statusLabel.TextSize = 24 -- set text size
 
 -- create TextButton for Status
@@ -132,7 +132,7 @@ statusButton.TextColor3 = Color3.new(1, 1, 1) -- white text color
 statusButton.BackgroundTransparency = 0.5 -- semi-transparent
 statusButton.TextScaled = true -- enable text scaling for the button
 statusButton.BorderSizePixel = 0 -- remove border
-statusButton.Font = Enum.Font.GothamSemibold -- set font
+statusButton.Font = Enum.Font.BurbankBigCd -- set font to "Burbank Big Cd Bk"
 statusButton.TextSize = 24 -- set text size
 
 -- Create rounded corners for the status button
@@ -162,6 +162,8 @@ local function createBillboardGuiForPlayer(player, distance)
     textLabel.TextStrokeColor3 = Color3.new(0, 0, 0) -- black text stroke
     textLabel.TextStrokeTransparency = 0 -- fully opaque text stroke (visible through walls)
     textLabel.Visible = statusButton.Text == "On" -- Hide the text if StatusButton is "Off"
+    textLabel.Font = Enum.Font.BurbankBigCd -- set font to "Burbank Big Cd Bk"
+    textLabel.TextSize = 18 -- set text size
     textLabel.Parent = billboardGui
 end
 

@@ -22,8 +22,8 @@ screenGui.DisplayOrder = 1
 local holder = Instance.new("Frame")
 holder.Name = "Holder"
 holder.Parent = screenGui
-holder.Size = UDim2.new(0, 200, 0, 100) -- size of the frame
-holder.Position = UDim2.new(0.5, -100, 0.5, -50) -- position of the frame at the center of the screen
+holder.Size = UDim2.new(0, 200, 0, 150) -- increased size to accommodate the new TextLabel
+holder.Position = UDim2.new(0.5, -100, 0.5, -75) -- position of the frame at the center of the screen
 holder.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
 holder.BackgroundTransparency = 0.5 -- semi-transparent
 holder.Draggable = true -- makes the frame draggable
@@ -35,7 +35,7 @@ titleLabel.Name = "TitleLabel"
 titleLabel.Text = "TWRV"
 titleLabel.TextScaled = true
 titleLabel.Parent = holder
-titleLabel.Size = UDim2.new(1, 0, 0.5, 0) -- fills half of the frame
+titleLabel.Size = UDim2.new(1, 0, 0.25, 0) -- fills one-fourth of the frame
 titleLabel.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
 titleLabel.TextColor3 = Color3.new(0, 0, 0) -- black text
 titleLabel.BackgroundTransparency = 0.5 -- semi-transparent
@@ -51,12 +51,24 @@ closeButton.BackgroundColor3 = Color3.new(1, 0, 0) -- red background for the clo
 closeButton.TextColor3 = Color3.new(1, 1, 1) -- white text color
 closeButton.TextScaled = true -- enable text scaling for the button
 
+-- create TextLabel for additional message
+local infoLabel = Instance.new("TextLabel")
+infoLabel.Name = "InfoLabel"
+infoLabel.Text = "IF YOU CLOSE THIS TAB, YOU NEED TO REJOIN FOR ESP TO WORK AGAIN."
+infoLabel.TextScaled = true
+infoLabel.Parent = holder
+infoLabel.Size = UDim2.new(1, 0, 0.25, 0) -- fills one-fourth of the frame
+infoLabel.Position = UDim2.new(0, 0, 0.25, 0) -- position below the titleLabel
+infoLabel.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
+infoLabel.TextColor3 = Color3.new(0, 0, 0) -- black text
+infoLabel.BackgroundTransparency = 0.5 -- semi-transparent
+
 -- create TextLabel for Status
 local statusLabel = Instance.new("TextLabel")
 statusLabel.Name = "StatusLabel"
 statusLabel.Text = ""
 statusLabel.Parent = holder
-statusLabel.Size = UDim2.new(1, 0, 0.25, 0) -- fills one-fourth of the frame below the TitleLabel
+statusLabel.Size = UDim2.new(1, 0, 0.25, 0) -- fills one-fourth of the frame below the InfoLabel
 statusLabel.Position = UDim2.new(0, 0, 0.5, 0) -- aligns the text label to the bottom of the frame
 statusLabel.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
 statusLabel.TextColor3 = Color3.new(0, 0, 0) -- black text

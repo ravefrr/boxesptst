@@ -32,7 +32,7 @@ holder.AnchorPoint = Vector2.new(0.5, 0.5) -- set anchor point to center
 holder.Position = UDim2.new(0.5, 0, 0.5, 0) -- reposition after setting anchor point
 holder.ZIndex = 2 -- set ZIndex to ensure it's above other GUI elements
 holder.Draggable = true -- makes the frame draggable
-holder.Active = true
+holder.Active = false
 
 -- Create rounded corners for the frame
 local corner = Instance.new("UICorner")

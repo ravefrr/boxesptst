@@ -219,8 +219,8 @@ end
 
 minimizeButton.MouseButton1Click:Connect(onMinimizeButtonClicked)
 
--- Now, you can add functionality to the button, for example:
-local function onButtonClicked()
+-- Function to handle the status button click event
+local function onStatusButtonClicked()
     if statusButton.Text == "Off" then
         statusButton.Text = "On"
         -- Add code to enable the player ESP here
@@ -245,4 +245,4 @@ local function onButtonClicked()
     end
 end
 
-statusButton.MouseButton1Click:Connect(onButtonClicked)
+statusButton.MouseButton1Click:Connect(onStatusButtonClicked)

@@ -19,7 +19,6 @@ screenGui.Parent = playerGui
 screenGui.DisplayOrder = 1
 
 -- create Frame
-holder.Draggable = true -- makes the frame draggable
 local holder = Instance.new("Frame")
 holder.Name = "Holder"
 holder.Parent = screenGui

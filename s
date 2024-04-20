@@ -1,8 +1,8 @@
 local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
 -- check if the ScreenGui already exists, if it does, destroy it and remove BillboardGuis
-if playerGui:FindFirstChild("TadachiisESP") then
-    playerGui:FindFirstChild("TadachiisESP"):Destroy()
+if playerGui:FindFirstChild("TWRV") then
+    playerGui:FindFirstChild("TWRV"):Destroy()
 
     for _, player in ipairs(game.Players:GetPlayers()) do
         local billboardGui = player.Character and player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("PlayerBillboardGui")
@@ -14,7 +14,7 @@ end
 
 -- create ScreenGui
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "TadachiisESP"
+screenGui.Name = "TWRV"
 screenGui.Parent = playerGui
 screenGui.DisplayOrder = 1
 
@@ -32,7 +32,7 @@ holder.Active = true
 -- create TextLabel
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Name = "TitleLabel"
-titleLabel.Text = "Tadachii's ESP GUI"
+titleLabel.Text = "TWRV"
 titleLabel.TextScaled = true
 titleLabel.Parent = holder
 titleLabel.Size = UDim2.new(1, 0, 0.5, 0) -- fills half of the frame

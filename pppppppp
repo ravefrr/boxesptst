@@ -51,7 +51,7 @@ topBar.ZIndex = 3 -- ensure it's above other GUI elements
 -- create TextLabel for the title
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Name = "TitleLabel"
-titleLabel.Text = "TWRV"
+titleLabel.Text = "TW.RV"
 titleLabel.TextScaled = true
 titleLabel.Parent = topBar
 titleLabel.Size = UDim2.new(1, -60, 1, 0) -- fills the top bar, excluding button space

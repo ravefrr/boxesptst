@@ -210,9 +210,6 @@ end
 
 minimizeButton.MouseButton1Click:Connect(onMinimizeButtonClicked)
 
--- Make the frame draggable
-holder.Draggable = true
-
 -- Now, you can add functionality to the button, for example:
 local function onButtonClicked()
     if statusButton.Text == "Off" then

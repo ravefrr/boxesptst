@@ -269,21 +269,9 @@ local function onButtonClicked()
 end
 
 -- drag
-local player = game.Players.LocalPlayer
-local mouse = player:GetMouse()
- 
-mouse.Button1Down:Connect(function()
-	script.Parent.Holding.Value = true
-end)
- 
-mouse.Button1Up:Connect(function()
-	script.Parent.Holding.Value = false
-end)
- 
-mouse.Move:Connect(function()
-	if script.Parent.Holding.Value == true then
-		script.Parent.Frame.Position = UDim2.new(0,mouse.X,0,mouse.Y)
-	end
-end)
+frame = script.Parent.DraggableFrame
+frame.Draggable = true
+frame.Selectable = true
+frame.Active = true
 
 statusButton.MouseButton1Click:Connect(onButtonClicked)

@@ -19,7 +19,6 @@ screenGui.Parent = playerGui
 screenGui.DisplayOrder = 1
 
 -- create Frame
-holder.Draggable = true -- makes the frame draggable
 local holder = Instance.new("Frame")
 holder.Name = "Holder"
 holder.Parent = screenGui
@@ -73,7 +72,7 @@ closeButton.Name = "CloseButton"
 closeButton.Text = "X"
 closeButton.Parent = holder
 closeButton.Size = UDim2.new(0, 20, 0, 20) -- size of the button
-closeButton.Position = UDim2.new(1, -45, 0, 5) -- position at the top-right corner with a small offset
+closeButton.Position = UDim2.new(1, -25, 0, 5) -- position at the top-right corner with a small offset
 closeButton.BackgroundColor3 = Color3.fromRGB(220, 20, 60) -- red background for the close button
 closeButton.TextColor3 = Color3.new(1, 1, 1) -- white text color
 closeButton.BackgroundTransparency = 0.5 -- semi-transparent
@@ -90,10 +89,10 @@ closeButtonCorner.Parent = closeButton
 -- create TextButton for minimizing the GUI
 local minimizeButton = Instance.new("TextButton")
 minimizeButton.Name = "MinimizeButton"
-minimizeButton.Text = "-"
+minimizeButton.Text = "▼" -- Arrow down symbol
 minimizeButton.Parent = holder
 minimizeButton.Size = UDim2.new(0, 20, 0, 20) -- size of the button
-minimizeButton.Position = UDim2.new(1, -70, 0, 5) -- position next to the close button
+minimizeButton.Position = UDim2.new(1, -50, 0, 5) -- position at the top-right corner with a small offset
 minimizeButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- dark grey background for the minimize button
 minimizeButton.TextColor3 = Color3.new(1, 1, 1) -- white text color
 minimizeButton.BackgroundTransparency = 0.5 -- semi-transparent

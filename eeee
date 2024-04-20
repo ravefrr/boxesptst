@@ -24,33 +24,15 @@ holder.Name = "Holder"
 holder.Parent = screenGui
 holder.Size = UDim2.new(0, 200, 0, 100) -- size of the frame
 holder.Position = UDim2.new(0.5, -100, 0.5, -50) -- position of the frame at the center of the screen
-holder.BackgroundColor3 = Color3.new(0, 0, 0) -- black background
+holder.BackgroundColor3 = Color3.new(1, 0, 0) -- red background
 holder.BackgroundTransparency = 0.5 -- semi-transparent
 holder.Draggable = true -- makes the frame draggable
 holder.Active = true
 
--- Create rounded corners for the holder edges
-local holderTopLeft = Instance.new("UICorner")
-holderTopLeft.CornerRadius = UDim.new(0, 10)
-holderTopLeft.Parent = holder
-
-local holderTopRight = holderTopLeft:Clone()
-holderTopRight.Parent = holder
-holderTopRight.CornerRadius = UDim.new(0, 0)
-holderTopRight.Name = "holderTopRight"
-holderTopRight.Parent = holderTopLeft
-
-local holderBottomLeft = holderTopLeft:Clone()
-holderBottomLeft.Parent = holder
-holderBottomLeft.CornerRadius = UDim.new(0, 0)
-holderBottomLeft.Name = "holderBottomLeft"
-holderBottomLeft.Parent = holderTopLeft
-
-local holderBottomRight = holderTopLeft:Clone()
-holderBottomRight.Parent = holder
-holderBottomRight.CornerRadius = UDim.new(0, 0)
-holderBottomRight.Name = "holderBottomRight"
-holderBottomRight.Parent = holderTopLeft
+-- Create rounded corners for the holder
+local holderCorner = Instance.new("UICorner")
+holderCorner.CornerRadius = UDim.new(0, 10)
+holderCorner.Parent = holder
 
 -- create X Button for closing the GUI
 local closeButton = Instance.new("TextButton")
@@ -59,7 +41,7 @@ closeButton.Text = "X"
 closeButton.Parent = holder
 closeButton.Size = UDim2.new(0, 20, 0, 20) -- size of the close button
 closeButton.Position = UDim2.new(1, -25, 0, 5) -- aligns the button to the top right corner with some padding
-closeButton.BackgroundColor3 = Color3.new(1, 0, 0) -- red background for the close button
+closeButton.BackgroundColor3 = Color3.new(0, 0, 0) -- black background for the close button
 closeButton.TextColor3 = Color3.new(1, 1, 1) -- white text color
 closeButton.TextScaled = true -- enable text scaling for the button
 closeButton.BorderSizePixel = 0 -- remove border
@@ -98,29 +80,29 @@ titleLabel.TextScaled = true
 titleLabel.Parent = holder
 titleLabel.Size = UDim2.new(1, 0, 0.5, 0) -- fills half of the frame
 titleLabel.BackgroundColor3 = Color3.new(0, 0, 0) -- black background
-titleLabel.TextColor3 = Color3.new(1, 0, 0) -- red text color
+titleLabel.TextColor3 = Color3.new(1, 1, 1) -- white text
 titleLabel.BackgroundTransparency = 0.5 -- semi-transparent
 
 -- Create rounded corners for the title label
 local titleLabelCorner = Instance.new("UICorner")
-titleLabelCorner.CornerRadius = UDim.new(0, 0)
+titleLabelCorner.CornerRadius = UDim.new(0, 10)
 titleLabelCorner.Parent = titleLabel
 
 -- create TextLabel for Status
 local statusLabel = Instance.new("TextLabel")
 statusLabel.Name = "StatusLabel"
-statusLabel.Text = "IF YOU CLOSE THIS TAB YOU WILL HAVE TO REJOIN FOR ESP TO WORK"
+statusLabel.Text = ""
 statusLabel.Parent = holder
 statusLabel.Size = UDim2.new(1, 0, 0.25, 0) -- fills one-fourth of the frame below the TitleLabel
 statusLabel.Position = UDim2.new(0, 0, 0.5, 0) -- aligns the text label to the bottom of the frame
 statusLabel.BackgroundColor3 = Color3.new(0, 0, 0) -- black background
-statusLabel.TextColor3 = Color3.new(1, 0, 0) -- red text color
+statusLabel.TextColor3 = Color3.new(1, 1, 1) -- white text
 statusLabel.BackgroundTransparency = 0.5 -- semi-transparent
 statusLabel.TextScaled = true -- enable text scaling for the status label
 
 -- Create rounded corners for the status label
 local statusLabelCorner = Instance.new("UICorner")
-statusLabelCorner.CornerRadius = UDim.new(0, 0)
+statusLabelCorner.CornerRadius = UDim.new(0, 10)
 statusLabelCorner.Parent = statusLabel
 
 -- create TextButton for Status
@@ -137,7 +119,7 @@ statusButton.TextScaled = true -- enable text scaling for the button
 
 -- Create rounded corners for the status button
 local statusButtonCorner = Instance.new("UICorner")
-statusButtonCorner.CornerRadius = UDim.new(0, 0)
+statusButtonCorner.CornerRadius = UDim.new(0, 10)
 statusButtonCorner.Parent = statusButton
 
 -- Function to create BillboardGui for a player with name and distance

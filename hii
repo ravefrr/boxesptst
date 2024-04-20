@@ -1,8 +1,8 @@
 local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
  
 -- check if the ScreenGui already exists, if it does, destroy it and remove BillboardGuis
-if playerGui:FindFirstChild("TWRV") then
-    playerGui:FindFirstChild("TWRV"):Destroy()
+if playerGui:FindFirstChild("TadachiisESP") then
+    playerGui:FindFirstChild("TadachiisESP"):Destroy()
  
     for _, player in ipairs(game.Players:GetPlayers()) do
         local billboardGui = player.Character and player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("PlayerBillboardGui")
@@ -14,7 +14,7 @@ end
  
 -- create ScreenGui
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "TWRV"
+screenGui.Name = "TadachiisESP"
 screenGui.Parent = playerGui
 screenGui.DisplayOrder = 1
  

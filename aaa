@@ -19,6 +19,7 @@ screenGui.Parent = playerGui
 screenGui.DisplayOrder = 1
 
 -- create Frame
+holder.Draggable = true -- makes the frame draggable
 local holder = Instance.new("Frame")
 holder.Name = "Holder"
 holder.Parent = screenGui
@@ -85,26 +86,6 @@ closeButton.TextSize = 18 -- set text size
 local closeButtonCorner = Instance.new("UICorner")
 closeButtonCorner.CornerRadius = UDim.new(0, 10)
 closeButtonCorner.Parent = closeButton
-
--- create TextButton for minimizing the GUI
-local minimizeButton = Instance.new("TextButton")
-minimizeButton.Name = "MinimizeButton"
-minimizeButton.Text = "▼" -- Arrow down symbol
-minimizeButton.Parent = holder
-minimizeButton.Size = UDim2.new(0, 20, 0, 20) -- size of the button
-minimizeButton.Position = UDim2.new(1, -50, 0, 5) -- position at the top-right corner with a small offset
-minimizeButton.BackgroundColor3 = Color3.fromRGB(50, 50, 50) -- dark grey background for the minimize button
-minimizeButton.TextColor3 = Color3.new(1, 1, 1) -- white text color
-minimizeButton.BackgroundTransparency = 0.5 -- semi-transparent
-minimizeButton.TextScaled = true -- enable text scaling for the button
-minimizeButton.BorderSizePixel = 0 -- remove border
-minimizeButton.Font = Enum.Font.Gotham -- set font
-minimizeButton.TextSize = 18 -- set text size
-
--- Create rounded corners for the minimize button
-local minimizeButtonCorner = Instance.new("UICorner")
-minimizeButtonCorner.CornerRadius = UDim.new(0, 10)
-minimizeButtonCorner.Parent = minimizeButton
 
 -- create TextLabel for Status
 local statusLabel = Instance.new("TextLabel")
@@ -199,15 +180,6 @@ local function onCloseButtonClicked()
 end
 
 closeButton.MouseButton1Click:Connect(onCloseButtonClicked)
-
--- Function to handle the minimize button click event
-local isMinimized = false
-local function onMinimizeButtonClicked()
-    isMinimized = not isMinimized
-    holder.Visible = not isMinimized
-end
-
-minimizeButton.MouseButton1Click:Connect(onMinimizeButtonClicked)
 
 -- Now, you can add functionality to the button, for example:
 local function onButtonClicked()

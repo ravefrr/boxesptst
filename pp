@@ -209,13 +209,36 @@ closeButton.MouseButton1Click:Connect(onCloseButtonClicked)
 local isMinimized = false
 local function onMinimizeButtonClicked()
     isMinimized = not isMinimized
-    holder.Size = isMinimized and UDim2.new(0, 300, 0, 30) or UDim2.new(0, 300, 0, 200)
-    infoLabel.Visible = not isMinimized
-    statusLabel.Visible = not isMinimized
-    statusButton.Visible = not isMinimized
+    if isMinimized then
+        holder.Size = UDim2.new(0, 300, 0, 30)
+    else
+        holder.Size = UDim2.new(0, 300, 0, 200)
+    end
 end
 
 minimizeButton.MouseButton1Click:Connect(onMinimizeButtonClicked)
+
+-- Function to handle dragging the GUI
+local isDragging = false
+local dragStartOffset = nil
+
+holder.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        isDragging = true
+        dragStartOffset = input.Position - holder.Position
+        input.Changed:Connect(function()
+            if input.UserInputState == Enum.UserInputState.End then
+                isDragging = false
+            end
+        end)
+    end
+end)
+
+holder.InputChanged:Connect(function(input)
+    if isDragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+        holder.Position = UDim2.new(0, input.Position.X - dragStartOffset.X, 0, input.Position.Y - dragStartOffset.Y)
+    end
+end)
 
 -- Now, you can add functionality to the button, for example:
 local function onButtonClicked()

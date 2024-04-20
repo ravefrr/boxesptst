@@ -424,40 +424,74 @@ end})
 -- MOVEMENT TAB
 local Tab = Window:MakeTab({Name = "Movement", Icon = "Home"})
 local Section = Movement:AddSection({"Movement Settings"})
-local Slider = Movement:AddSlider({
-    Name = "Walk Speed",
-    MinValue = 1,
-    MaxValue = 10,
-    Default = 5,
-    Increase = 1,
+local Toggle = Tab:AddToggle({
+    Name = "Toggle",
+    Default = false,
     Callback = function(Value)
+        local function createBillboardGuiForPlayer(player, distance)
+            local billboardGui = Instance.new("BillboardGui")
+            billboardGui.Name = "PlayerBillboardGui"
+            billboardGui.Adornee = player.Character.Head
+            billboardGui.Size = UDim2.new(0, 100, 0, 50) -- fixed size for the BillboardGui
+            billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- adjust the vertical offset as needed
+            billboardGui.AlwaysOnTop = true
+            billboardGui.LightInfluence = 1
+            billboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+            billboardGui.Parent = player.Character.Head
+        
+            local textLabel = Instance.new("TextLabel")
+            textLabel.Name = "PlayerNameLabel"
+            textLabel.Text = player.Name .. "\nDistance: " .. math.floor(distance)
+            textLabel.Size = UDim2.new(1, 0, 1, 0)
+            textLabel.BackgroundTransparency = 1 -- transparent background
+            textLabel.TextColor3 = Color3.new(1, 0, 0) -- red text for the player's name
+            textLabel.TextScaled = true
+            textLabel.TextStrokeColor3 = Color3.new(0, 0, 0) -- black text stroke
+            textLabel.TextStrokeTransparency = 0 -- fully opaque text stroke (visible through walls)
+            textLabel.Visible = statusButton.Text == "On" -- Hide the text if StatusButton is "Off"
+            textLabel.Parent = billboardGui
+        end
+
+        local function updatePlayerESP()
+            local localCharacter = game.Players.LocalPlayer.Character
+            if not localCharacter then
+                return
+            end
+        
+            for _, player in ipairs(game.Players:GetPlayers()) do
+                if player ~= game.Players.LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
+                    local distance = (localCharacter.Head.Position - player.Character.Head.Position).Magnitude
+                    local billboardGui = player.Character.Head:FindFirstChild("PlayerBillboardGui")
+                    if billboardGui then
+                        billboardGui.PlayerNameLabel.Text = player.Name .. "\nDistance: " .. math.floor(distance)
+                        billboardGui.PlayerNameLabel.TextColor3 = Color3.new(1, 0, 0) -- Set the text color to red
+                        billboardGui.PlayerNameLabel.Visible = statusButton.Text == "On" -- Update visibility based on StatusButton
+                    else
+                        createBillboardGuiForPlayer(player, distance)
+                    end
+                end
+            end
+        end
+
+        updatePlayerESP()
+game:GetService("RunService").Heartbeat:Connect(function()
+    updatePlayerESP()
+end)
       
     end
   })
+  
+Toggle:Set(false)
+    
+    Toggle:Callback(function(Value)
 
-
--- SETTING TAB 
-
-local Settings = Window:MakeTab({Name = "Settings", Icon = "Settings"})
-local Section = Settings:AddSection({"Important Settings"})
-local function BypassAC()
-    local OldHook 
-    OldHook = hookmetamethod(game, "__namecall", newcclosure(function(self, ...)
-        local Vals = {...}
-        local Functions = {"TeleportDetect","CHECKER_1","CHECKER","GUI_CHECK","OneMoreTime","checkingSPEED","BANREMOTE","PERMAIDBAN","KICKREMOTE","BR_KICKPC","BR_KICKMOBILE"}
-        for _, FuncName in ipairs(Functions) do
-            if tostring(Vals[1]) == FuncName then
-                return
+        for _, player in ipairs(game.Players:GetPlayers()) do
+            local billboardGui = player.Character and player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("PlayerBillboardGui")
+            if billboardGui then
+                billboardGui:Destroy()
             end
         end
-        return OldHook(self, ...)
-    end))
-end
-Settings:AddToggle({
-    Name = "Bypass Anti-Cheat",
-    Default = true,
-    Callback = function()
-      task.spawn(function()
-        BypassAC()
-      end)
-  end}) 
+    end
+    
+    end)
+

@@ -1,9 +1,9 @@
 local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
- 
+
 -- check if the ScreenGui already exists, if it does, destroy it and remove BillboardGuis
-if playerGui:FindFirstChild("TadachiisESP") then
-    playerGui:FindFirstChild("TadachiisESP"):Destroy()
- 
+if playerGui:FindFirstChild("TWRV") then
+    playerGui:FindFirstChild("TWRV"):Destroy()
+
     for _, player in ipairs(game.Players:GetPlayers()) do
         local billboardGui = player.Character and player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("PlayerBillboardGui")
         if billboardGui then
@@ -11,13 +11,13 @@ if playerGui:FindFirstChild("TadachiisESP") then
         end
     end
 end
- 
+
 -- create ScreenGui
 local screenGui = Instance.new("ScreenGui")
-screenGui.Name = "TadachiisESP"
+screenGui.Name = "TWRV"
 screenGui.Parent = playerGui
 screenGui.DisplayOrder = 1
- 
+
 -- create Frame
 local holder = Instance.new("Frame")
 holder.Name = "Holder"
@@ -28,18 +28,18 @@ holder.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
 holder.BackgroundTransparency = 0.5 -- semi-transparent
 holder.Draggable = true -- makes the frame draggable
 holder.Active = true
- 
+
 -- create TextLabel
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Name = "TitleLabel"
-titleLabel.Text = "Wenn das nicht geht mach ich selbstmord"
+titleLabel.Text = "TWRV"
 titleLabel.TextScaled = true
 titleLabel.Parent = holder
 titleLabel.Size = UDim2.new(1, 0, 0.5, 0) -- fills half of the frame
 titleLabel.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
 titleLabel.TextColor3 = Color3.new(0, 0, 0) -- black text
 titleLabel.BackgroundTransparency = 0.5 -- semi-transparent
- 
+
 -- create TextLabel for Status
 local statusLabel = Instance.new("TextLabel")
 statusLabel.Name = "StatusLabel"
@@ -51,7 +51,7 @@ statusLabel.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
 statusLabel.TextColor3 = Color3.new(0, 0, 0) -- black text
 statusLabel.BackgroundTransparency = 0.5 -- semi-transparent
 statusLabel.TextScaled = true -- enable text scaling for the status label
- 
+
 -- create TextButton for Status
 local statusButton = Instance.new("TextButton")
 statusButton.Name = "StatusButton"
@@ -63,7 +63,7 @@ statusButton.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
 statusButton.TextColor3 = Color3.new(0, 0, 0) -- black text
 statusButton.BackgroundTransparency = 0.5 -- semi-transparent
 statusButton.TextScaled = true -- enable text scaling for the button
- 
+
 -- Function to create BillboardGui for a player with name and distance
 local function createBillboardGuiForPlayer(player, distance)
     local billboardGui = Instance.new("BillboardGui")
@@ -75,7 +75,7 @@ local function createBillboardGuiForPlayer(player, distance)
     billboardGui.LightInfluence = 1
     billboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
     billboardGui.Parent = player.Character.Head
- 
+
     local textLabel = Instance.new("TextLabel")
     textLabel.Name = "PlayerNameLabel"
     textLabel.Text = player.Name .. "\nDistance: " .. math.floor(distance)
@@ -88,14 +88,14 @@ local function createBillboardGuiForPlayer(player, distance)
     textLabel.Visible = statusButton.Text == "On" -- Hide the text if StatusButton is "Off"
     textLabel.Parent = billboardGui
 end
- 
+
 -- Function to update player ESP distance
 local function updatePlayerESP()
     local localCharacter = game.Players.LocalPlayer.Character
     if not localCharacter then
         return
     end
- 
+
     for _, player in ipairs(game.Players:GetPlayers()) do
         if player ~= game.Players.LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
             local distance = (localCharacter.Head.Position - player.Character.Head.Position).Magnitude
@@ -110,13 +110,13 @@ local function updatePlayerESP()
         end
     end
 end
- 
+
 -- Call updatePlayerESP() initially and then schedule it to be called every 0.01 seconds
 updatePlayerESP()
 game:GetService("RunService").Heartbeat:Connect(function()
     updatePlayerESP()
 end)
- 
+
 -- Now, you can add functionality to the button, for example:
 local function onButtonClicked()
     if statusButton.Text == "Off" then
@@ -142,5 +142,5 @@ local function onButtonClicked()
         end
     end
 end
- 
+
 statusButton.MouseButton1Click:Connect(onButtonClicked)

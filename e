@@ -32,7 +32,7 @@ holder.AnchorPoint = Vector2.new(0.5, 0.5) -- set anchor point to center
 holder.Position = UDim2.new(0.5, 0, 0.5, 0) -- reposition after setting anchor point
 holder.ZIndex = 2 -- set ZIndex to ensure it's above other GUI elements
 holder.Draggable = true -- makes the frame draggable
-holder.Active = true -- makes the GUI draggable
+holder.Active = true
 
 -- Create rounded corners for the frame
 local corner = Instance.new("UICorner")
@@ -202,7 +202,7 @@ end)
 
 -- Function to handle the close button click event
 local function onCloseButtonClicked()
-    screenGui:Destroy() -- Destroy the entire ScreenGui when the close button is clicked
+    playerGui.TW.RV:Destroy() -- Destroy the entire GUI when the close button is clicked
 end
 
 closeButton.MouseButton1Click:Connect(onCloseButtonClicked)

@@ -267,3 +267,5 @@ local function onButtonClicked()
 end
 
 statusButton.MouseButton1Click:Connect(onButtonClicked)
+closeButton.MouseButton1Click:Connect(onCloseButtonClicked)
+

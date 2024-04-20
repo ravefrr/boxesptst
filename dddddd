@@ -132,15 +132,12 @@ local statusButton = Instance.new("TextButton")
 statusButton.Name = "StatusButton"
 statusButton.Text = "Off"
 statusButton.Parent = holder
-statusButton.Size = UDim2.new(0.8, 0, 0.15, 0) -- fills 15% of the frame
-statusButton.Position = UDim2.new(0.1, 0, 0.85, 0) -- aligns the button to the bottom of the frame
-statusButton.BackgroundColor3 = Color3.fromRGB(220, 20, 60) -- red background for the button
-statusButton.TextColor3 = Color3.new(1, 1, 1) -- white text color
+statusButton.Size = UDim2.new(1, 0, 0.25, 0) -- fills one-fourth of the frame below the StatusLabel
+statusButton.Position = UDim2.new(0, 0, 0.75, 0) -- aligns the button to the bottom of the frame
+statusButton.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
+statusButton.TextColor3 = Color3.new(0, 0, 0) -- black text
 statusButton.BackgroundTransparency = 0.5 -- semi-transparent
 statusButton.TextScaled = true -- enable text scaling for the button
-statusButton.BorderSizePixel = 0 -- remove border
-statusButton.Font = Enum.Font.GothamSemibold -- set font
-statusButton.TextSize = 24 -- set text size
 
 -- Create rounded corners for the status button
 local statusButtonCorner = Instance.new("UICorner")
@@ -164,7 +161,7 @@ local function createBillboardGuiForPlayer(player, distance)
     textLabel.Text = player.Name .. "\nDistance: " .. math.floor(distance)
     textLabel.Size = UDim2.new(1, 0, 1, 0)
     textLabel.BackgroundTransparency = 1 -- transparent background
-    textLabel.TextColor3 = Color3.new(1, 1, 1) -- white text for the player's name
+    textLabel.TextColor3 = Color3.new(1, 0, 0) -- red text for the player's name
     textLabel.TextScaled = true
     textLabel.TextStrokeColor3 = Color3.new(0, 0, 0) -- black text stroke
     textLabel.TextStrokeTransparency = 0 -- fully opaque text stroke (visible through walls)
@@ -185,7 +182,7 @@ local function updatePlayerESP()
             local billboardGui = player.Character.Head:FindFirstChild("PlayerBillboardGui")
             if billboardGui then
                 billboardGui.PlayerNameLabel.Text = player.Name .. "\nDistance: " .. math.floor(distance)
-                billboardGui.PlayerNameLabel.TextColor3 = Color3.new(1, 1, 1) -- Set the text color to white
+                billboardGui.PlayerNameLabel.TextColor3 = Color3.new(1, 0, 0) -- Set the text color to red
                 billboardGui.PlayerNameLabel.Visible = statusButton.Text == "On" -- Update visibility based on StatusButton
             else
                 createBillboardGuiForPlayer(player, distance)
@@ -199,6 +196,14 @@ updatePlayerESP()
 game:GetService("RunService").Heartbeat:Connect(function()
     updatePlayerESP()
 end)
+
+-- Now, you can add functionality to the button, for example:
+local function onButtonClicked()
+    if statusButton.Text == "Off" then
+        statusButton.Text = "On"
+        -- Add code to enable the player ESP here
+    else
+        statusButton.Text = "Off"
 
 -- Function to handle the close button click event
 local function onCloseButtonClicked()

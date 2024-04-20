@@ -200,7 +200,9 @@ end)
 
 -- Function to handle the close button click event
 local function onCloseButtonClicked()
-    playerGui.TW.RV:Destroy() -- Destroy the entire GUI when the close button is clicked
+    if playerGui:FindFirstChild("TW.RV") then
+        playerGui:FindFirstChild("TW.RV"):Destroy() -- Destroy the entire GUI when the close button is clicked
+    end
 end
 
 closeButton.MouseButton1Click:Connect(onCloseButtonClicked)

@@ -1,490 +1,132 @@
-local lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/REDzHUB/RedzLibV4/main/Source.lua"))()
+local playerGui = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-local Window = lib:MakeWindow({
-  Title = "Tw and Rave Dh : V1",
-  SubTitle = "by : TWRAVE",
-  LoadText = "TwRaveHub",
-  Flags = "TwRave Hub | Example.lua"
-})
+-- check if the ScreenGui already exists, if it does, destroy it and remove BillboardGuis
+if playerGui:FindFirstChild("TWRV") then
+    playerGui:FindFirstChild("TWRV"):Destroy()
 
-local Notify = lib:MakeNotify({
-  Title = "Successfully Loaded",
-  Text = "TWRAVE Dahood V0.2✅️",
-  Time = 5
-})
-
-
--- MAIN PAGE
-local Main = Window:MakeTab({Name = "Main", Icon = "Home"})
-local Section = Main:AddSection({"Main Section"})
-local Paragraph = Main:AddParagraph({"Currently Under Development( ALPHA )", "Info"})
-
-
--- AIMBOT PAGE
-local Aimbot = Window:MakeTab({Name = "Aimbot", Icon = "Settings"})
-local Section = Aimbot:AddSection({"Aimbot Section"})
-local Button = Aimbot:AddButton({
-  Name = "Aimbot",
-  Callback = function()
-    getgenv().Settings = {
-    rewrittenmain = {
-        Enabled = true,
-        DOT = true,
-        AIRSHOT = true,
-        NOTIF = true,
-        AUTOPRED = true,
-        FOV = math.huge,
-        RESOVLER = true,
-    }
-}
- 
-local SelectedPart = "HumanoidRootPart"
-local Prediction = true
-getgenv().PredictionValue = 0.1413
- getgenv().AntiGroundShots = true
-
-local Tool = Instance.new("Tool")
-Tool.RequiresHandle = false
-Tool.Name = "TwRave"
-Tool.Parent = game.Players.LocalPlayer.Backpack
-
-local player = game.Players.LocalPlayer
-
-local function connectCharacterAdded()
-    player.CharacterAdded:Connect(onCharacterAdded)
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        local billboardGui = player.Character and player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("PlayerBillboardGui")
+        if billboardGui then
+            billboardGui:Destroy()
+        end
+    end
 end
 
-connectCharacterAdded()
+-- create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "TWRV"
+screenGui.Parent = playerGui
+screenGui.DisplayOrder = 1
 
-player.CharacterRemoving:Connect(function()
-    Tool.Parent = game.Players.LocalPlayer.Backpack
-end)
- 
-    local AnchorCount = 0
-    local MaxAnchor = 50
- 
-    local CC = game:GetService"Workspace".CurrentCamera
-    local Plr;
-    local enabled = false
-    local mouse = game.Players.LocalPlayer:GetMouse()
-    local placemarker = Instance.new("Part", game.Workspace)
- 
-    function makemarker(Parent, Adornee, Color, Size, Size2)
-        local e = Instance.new("BillboardGui", Parent)
-        e.Name = "PP"
-        e.Adornee = Adornee
-        e.Size = UDim2.new(Size, Size2, Size, Size2)
-        e.AlwaysOnTop = Settings.rewrittenmain.DOT
-        local a = Instance.new("Frame", e)
-        if Settings.rewrittenmain.DOT == true then
-        a.Size = UDim2.new(1, 0, 1, 0)
-        else
-        a.Size = UDim2.new(0, 0, 0, 0)
-        end
-        if Settings.rewrittenmain.DOT == true then
-        a.Transparency = 0
-        a.BackgroundTransparency = 0
-        else
-        a.Transparency = 1
-        a.BackgroundTransparency = 1
-        end
-        a.BackgroundColor3 = Color
-        local g = Instance.new("UICorner", a)
-        if Settings.rewrittenmain.DOT == false then
-        g.CornerRadius = UDim.new(0, 0)
-        else
-        g.CornerRadius = UDim.new(1, 1) 
-        end
-        return(e)
-    end
- 
- 
-    local data = game.Players:GetPlayers()
-    function noob(player)
-        local character
-        repeat wait() until player.Character
-        local handler = makemarker(guimain, player.Character:WaitForChild(SelectedPart), Color3.fromRGB(107, 184, 255), 0.3, 3)
-        handler.Name = player.Name
-        player.CharacterAdded:connect(function(Char) handler.Adornee = Char:WaitForChild(SelectedPart) end)
- 
- 
-        spawn(function()
-            while wait() do
-                if player.Character then
-                end
-            end
-        end)
-    end
- 
-    for i = 1, #data do
-        if data[i] ~= game.Players.LocalPlayer then
-            noob(data[i])
-        end
-    end
- 
-    game.Players.PlayerAdded:connect(function(Player)
-        noob(Player)
-    end)
- 
-    spawn(function()
-        placemarker.Anchored = true
-        placemarker.CanCollide = false
-        if Settings.rewrittenmain.DOT == true then
-        placemarker.Size = Vector3.new(0.5, 0.5, 0.5)
-        else
-        placemarker.Size = Vector3.new(0.5, 0.5, 0.5) 
-        end
-        placemarker.Transparency = -1
-        if Settings.rewrittenmain.DOT then
-        makemarker(placemarker, placemarker, Color3.fromRGB(255, 255, 255), 0.40, 0)
-        end
-    end)
- 
-    Tool.Activated:Connect(function()
-            if enabled == true then
-                enabled = false
-                if Settings.rewrittenmain.NOTIF == true then
-                    Plr = getClosestPlayerToCursor()
-                game.StarterGui:SetCore("SendNotification", {
-                    Title = "Tw/Rave Lock";
-                    Text = "Unlocked",
-                    Duration = 5
-                })
-            end
-            else
-                Plr = getClosestPlayerToCursor()
-                enabled = true
-                if Settings.rewrittenmain.NOTIF == true then
- 
-                    game.StarterGui:SetCore("SendNotification", {
-                        Title = "TwRaveLock";
-                        Text = "Target: "..tostring(Plr.Character.Humanoid.DisplayName),
-                        Duration = 5
-                    })
- 
-                end
-        end
-    end)
+-- create Frame
+local holder = Instance.new("Frame")
+holder.Name = "Holder"
+holder.Parent = screenGui
+holder.Size = UDim2.new(0, 200, 0, 100) -- size of the frame
+holder.Position = UDim2.new(0.5, -100, 0.5, -50) -- position of the frame at the center of the screen
+holder.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
+holder.BackgroundTransparency = 0.5 -- semi-transparent
+holder.Draggable = true -- makes the frame draggable
+holder.Active = true
 
-    function getClosestPlayerToCursor()
-        local closestPlayer
-        local shortestDistance = getgenv().Settings.rewrittenmain.FOV
+-- create TextLabel
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Name = "TitleLabel"
+titleLabel.Text = "TWRV"
+titleLabel.TextScaled = true
+titleLabel.Parent = holder
+titleLabel.Size = UDim2.new(1, 0, 0.5, 0) -- fills half of the frame
+titleLabel.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
+titleLabel.TextColor3 = Color3.new(0, 0, 0) -- black text
+titleLabel.BackgroundTransparency = 0.5 -- semi-transparent
 
-        for i, v in pairs(game.Players:GetPlayers()) do
-            if v ~= game.Players.LocalPlayer and v.Character and v.Character:FindFirstChild("Humanoid") and v.Character.Humanoid.Health ~= 0 and v.Character:FindFirstChild("HumanoidRootPart") then
-                local pos = CC:WorldToViewportPoint(v.Character.PrimaryPart.Position)
-                local magnitude = (Vector2.new(pos.X, pos.Y) - Vector2.new(mouse.X, mouse.Y)).magnitude
-                if magnitude < shortestDistance then
-                    closestPlayer = v
-                    shortestDistance = magnitude
-                end
-            end
-        end
-        return closestPlayer
-    end
- 
-    local pingvalue = nil;
-    local split = nil;
-    local ping = nil;
- 
-    game:GetService("RunService").Stepped:connect(function()
-        if enabled and Plr.Character ~= nil and Plr.Character:FindFirstChild("HumanoidRootPart") then
-            placemarker.CFrame = CFrame.new(Plr.Character.HumanoidRootPart.Position+(Plr.Character.HumanoidRootPart.Velocity*getgenv().PredictionValue))
-        else
-            placemarker.CFrame = CFrame.new(0, 9999, 0)
-        end
+-- create TextLabel for Status
+local statusLabel = Instance.new("TextLabel")
+statusLabel.Name = "StatusLabel"
+statusLabel.Text = ""
+statusLabel.Parent = holder
+statusLabel.Size = UDim2.new(1, 0, 0.25, 0) -- fills one-fourth of the frame below the TitleLabel
+statusLabel.Position = UDim2.new(0, 0, 0.5, 0) -- aligns the text label to the bottom of the frame
+statusLabel.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
+statusLabel.TextColor3 = Color3.new(0, 0, 0) -- black text
+statusLabel.BackgroundTransparency = 0.5 -- semi-transparent
+statusLabel.TextScaled = true -- enable text scaling for the status label
 
-        if getgenv().Settings.rewrittenmain.AUTOPRED == true then
-   local pingvalue = game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValueString()
-    local split = string.split(pingvalue,'(')
-    local ping = tonumber(split[1])
-    if ping > 300 then
-        getgenv().PredictionValue = 0.234
-    elseif ping > 290 then
-        getgenv().PredictionValue = 0.222
-    elseif ping > 280 then
-        getgenv().PredictionValue = 0.24
-    elseif ping > 270 then
-        getgenv().PredictionValue = 0.2385
-    elseif ping > 260 then
-        getgenv().PredictionValue = 0.2158
-    elseif ping > 250 then
-        getgenv().PredictionValue = 0.2148
-    elseif ping > 240 then
-        getgenv().PredictionValue = 0.24
-    elseif ping > 230 then
-        getgenv().PredictionValue = 0.23
-    elseif ping > 220 then
-        getgenv().PredictionValue = 0.2
-    elseif ping > 210 then
-        getgenv().PredictionValue = 0.19834398934
-    elseif ping > 200 then
-        getgenv().PredictionValue = 0.198439891120
-    elseif ping > 190 then
-        getgenv().PredictionValue = 0.194924892910
-    elseif ping > 180 then
-        getgenv().PredictionValue = 0.19291198328
-    elseif ping > 180 then
-        getgenv().PredictionValue = 0.19291198328
-    elseif ping > 170 then
-        getgenv().PredictionValue = 0.18
-    elseif ping > 160 then
-        getgenv().PredictionValue = 0.1754
-    elseif ping  >150 then
-        getgenv().PredictionValue = 0.171
-    elseif ping  >140 then
-        getgenv().PredictionValue = 0.17
-       elseif ping > 130 then
-        getgenv().PredictionValue = 0.157
-    elseif ping > 120 then
-        getgenv().PredictionValue = 0.166
-    elseif ping > 110 then
-        getgenv().PredictionValue = 0.1642271
-    elseif ping > 100 then
-        getgenv().PredictionValue = 0.1533
-    elseif ping > 90 then
-        getgenv().PredictionValue = 0.13573
-    elseif ping > 80 then
-        getgenv().PredictionValue = 0.165
-    elseif ping > 70 then
-        getgenv().PredictionValue = 0.142
-    elseif ping > 50 then
-        getgenv().PredictionValue = 0.1267
-    elseif ping > 40 then
-        getgenv().PredictionValue = 0.12
-    elseif ping > 30 then
-        getgenv().PredictionValue = 0.112
-   elseif ping > 20 then
-        getgenv().PredictionValue = 0.102
-   elseif ping > 10 then
-        getgenv().PredictionValue = 0.087
-            end
-        end
-    end)
- 
-    local mt = getrawmetatable(game)
-    local old = mt.__namecall
-    setreadonly(mt, false)
-    mt.__namecall = newcclosure(function(...)
-        local args = {...}
-        local sex = {"UpdateMousePos", "GetMousePos", "MousePos"}
-        if enabled and table.find(sex, args[2]) and getnamecallmethod() == "FireServer" and getgenv().Settings.rewrittenmain.Enabled and Plr.Character ~= nil then
- 
-            -- args[3] = Plr.Character.HumanoidRootPart.Position+(Plr.Character.HumanoidRootPart.Velocity*getgenv().PredictionValue)
-            --[[
-            if getgenv().Settings.rewrittenmain.AIRSHOT == true then
-                if game.Workspace.Players[Plr.Name].Humanoid:GetState() == Enum.HumanoidStateType.Freefall then -- Plr.Character:WaitForChild("Humanoid"):GetState() == Enum.HumanoidStateType.Freefall
- 
-                    --// Airshot
-                    args[3] = Plr.Character.LeftFoot.Position+(Plr.Character.LeftFoot.Velocity*getgenv().PredictionValue)
- 
-                else
-                    args[3] = Plr.Character.HumanoidRootPart.Position+(Plr.Character.HumanoidRootPart.Velocity*getgenv().PredictionValue)
- 
-                end
-            else
-                    args[3] = Plr.Character.HumanoidRootPart.Position+(Plr.Character.HumanoidRootPart.Velocity*getgenv().PredictionValue)
-            end
-            ]]
-            if Prediction == true then
- 
-            args[3] = Plr.Character[SelectedPart].Position+(Plr.Character[SelectedPart].Velocity*getgenv().PredictionValue)
- 
-            else
- 
-            args[3] = Plr.Character[SelectedPart].Position
- 
-            end
- 
-            return old(unpack(args))
-        end
-        return old(...)
-    end)
- 
-    game:GetService("RunService").RenderStepped:Connect(function()
-        if getgenv().Settings.rewrittenmain.RESOVLER == true and Plr.Character ~= nil and enabled and getgenv().Settings.rewrittenmain.Enabled then
-        if getgenv().Settings.rewrittenmain.AIRSHOT == true and enabled and Plr.Character ~= nil then
- 
-            if game.Workspace.Players[Plr.Name].Humanoid:GetState() == Enum.HumanoidStateType.Freefall then -- Plr.Character:WaitForChild("Humanoid"):GetState() == Enum.HumanoidStateType.Freefall
- 
-                --// Airshot
- 
-                --// Anchor Check
- 
-                if Plr.Character ~= nil and Plr.Character.HumanoidRootPart.Anchored == true then
-                    AnchorCount = AnchorCount + 1
-                    if AnchorCount >= MaxAnchor then
-                        Prediction = false
-                        wait(2)
-                        AnchorCount = 0;
-                    end
-                else
-                    Prediction = true
-                    AnchorCount = 0;
-                end
- 
-                SelectedPart = "LeftFoot"
- 
-            else
-                --// Anchor Check
- 
-                if Plr.Character ~= nil and Plr.Character.HumanoidRootPart.Anchored == true then
-                    AnchorCount = AnchorCount + 1
-                    if AnchorCount >= MaxAnchor then
-                        Prediction = false
-                        wait(2)
-                        AnchorCount = 0;
-                    end
-                else
-                    Prediction = true
-                    AnchorCount = 0;
-                end
- 
-                SelectedPart = "HumanoidRootPart"
- 
-            end
-            else
- 
-                --// Anchor Check
- 
-                if Plr.Character ~= nil and Plr.Character.HumanoidRootPart.Anchored == true then
-                    AnchorCount = AnchorCount + 1
-                    if AnchorCount >= MaxAnchor then
-                        Prediction = false
-                        wait(2)
-                        AnchorCount = 0;
-                    end
-                else
-                    Prediction = true
-                    AnchorCount = 0;
-                end
- 
-                SelectedPart = "HumanoidRootPart"
-            end
- 
-        else
-                SelectedPart = "HumanoidRootPart"
-        end
-    end)
+-- create TextButton for Status
+local statusButton = Instance.new("TextButton")
+statusButton.Name = "StatusButton"
+statusButton.Text = "Off"
+statusButton.Parent = holder
+statusButton.Size = UDim2.new(1, 0, 0.25, 0) -- fills one-fourth of the frame below the StatusLabel
+statusButton.Position = UDim2.new(0, 0, 0.75, 0) -- aligns the button to the bottom of the frame
+statusButton.BackgroundColor3 = Color3.new(1, 1, 1) -- white background
+statusButton.TextColor3 = Color3.new(0, 0, 0) -- black text
+statusButton.BackgroundTransparency = 0.5 -- semi-transparent
+statusButton.TextScaled = true -- enable text scaling for the button
 
-game:GetService("RunService").RenderStepped:connect(function()
-if getgenv().AntiGroundShots == true and Plr.Character.Humanoid.Jump == true and Plr.Character.Humanoid.FloorMaterial == Enum.Material.Air then
-    pcall(function()
-        local TargetVelv5 = Plr.Character.HumanoidRootPart
-TargetVelv5.Velocity = Vector3.new(TargetVelv5.Velocity.X, math.abs(TargetVelv5.Velocity.Y * 0.36),
- TargetVelv5.Velocity.Z)
-        TargetVelv5.AssemblyLinearVelocity = Vector3.new(TargetVelv5.Velocity.X, math.abs(TargetVelv5.Velocity.Y * 0.36), TargetVelv5.Velocity.Z)
-    end)
-    end
-end)
-  end
-})
--- SILENT AIM
+-- Function to create BillboardGui for a player with name and distance
+local function createBillboardGuiForPlayer(player, distance)
+    local billboardGui = Instance.new("BillboardGui")
+    billboardGui.Name = "PlayerBillboardGui"
+    billboardGui.Adornee = player.Character.Head
+    billboardGui.Size = UDim2.new(0, 100, 0, 50) -- fixed size for the BillboardGui
+    billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- adjust the vertical offset as needed
+    billboardGui.AlwaysOnTop = true
+    billboardGui.LightInfluence = 1
+    billboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    billboardGui.Parent = player.Character.Head
 
-local plr = game:GetService("Players")
-GetNear = function()
-    local SavePos
-    local OldDistance = math.huge
-    for _, PlrName in ipairs(plr:GetPlayers()) do
-        if PlrName ~= plr.LocalPlayer then
-            local plrChar = PlrName.Character
-            if plrChar then
-                if plrChar:FindFirstChild("HumanoidRootPart") then
-                    local distance = (plrChar:FindFirstChild("HumanoidRootPart").Position - plr.LocalPlayer:GetMouse().Hit.p).Magnitude
-                    if distance < OldDistance then
-                        OldDistance = distance
-                        SavePos = PlrName
-                    end
-                end
-            end
-        end
-    end
-    return SavePos
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Name = "PlayerNameLabel"
+    textLabel.Text = player.Name .. "\nDistance: " .. math.floor(distance)
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.BackgroundTransparency = 1 -- transparent background
+    textLabel.TextColor3 = Color3.new(1, 0, 0) -- red text for the player's name
+    textLabel.TextScaled = true
+    textLabel.TextStrokeColor3 = Color3.new(0, 0, 0) -- black text stroke
+    textLabel.TextStrokeTransparency = 0 -- fully opaque text stroke (visible through walls)
+    textLabel.Visible = statusButton.Text == "On" -- Hide the text if StatusButton is "Off"
+    textLabel.Parent = billboardGui
 end
-Aimbot:AddToggle({
-    Name = "Silent Aim Neareast",
-    Default = false,
-    Callback = function(Val)
-    _G.SilentAim = Val
-    task.spawn(function() 
-        while true do
-            local NearPos = GetNear()
-            if NearPos then
-                if NearPos.Character then
-                    if NearPos.Character:FindFirstChild("HumanoidRootPart") then
-                        plr.LocalPlayer:GetMouse().Target = NearPos.Character:FindFirstChild("HumanoidRootPart")
-                    end
-                end
-            end
-            task.wait()
-        end
-    end)
-end})
 
--- MOVEMENT TAB
-local Tab = Window:MakeTab({Name = "Movement", Icon = "Home"})
-local Section = Movement:AddSection({"Movement Settings"})
-local Toggle = Tab:AddToggle({
-    Name = "Toggle",
-    Default = false,
-    Callback = function(Value)
-        local function createBillboardGuiForPlayer(player, distance)
-            local billboardGui = Instance.new("BillboardGui")
-            billboardGui.Name = "PlayerBillboardGui"
-            billboardGui.Adornee = player.Character.Head
-            billboardGui.Size = UDim2.new(0, 100, 0, 50) -- fixed size for the BillboardGui
-            billboardGui.StudsOffset = Vector3.new(0, 2, 0) -- adjust the vertical offset as needed
-            billboardGui.AlwaysOnTop = true
-            billboardGui.LightInfluence = 1
-            billboardGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-            billboardGui.Parent = player.Character.Head
-        
-            local textLabel = Instance.new("TextLabel")
-            textLabel.Name = "PlayerNameLabel"
-            textLabel.Text = player.Name .. "\nDistance: " .. math.floor(distance)
-            textLabel.Size = UDim2.new(1, 0, 1, 0)
-            textLabel.BackgroundTransparency = 1 -- transparent background
-            textLabel.TextColor3 = Color3.new(1, 0, 0) -- red text for the player's name
-            textLabel.TextScaled = true
-            textLabel.TextStrokeColor3 = Color3.new(0, 0, 0) -- black text stroke
-            textLabel.TextStrokeTransparency = 0 -- fully opaque text stroke (visible through walls)
-            textLabel.Visible = statusButton.Text == "On" -- Hide the text if StatusButton is "Off"
-            textLabel.Parent = billboardGui
-        end
+-- Function to update player ESP distance
+local function updatePlayerESP()
+    local localCharacter = game.Players.LocalPlayer.Character
+    if not localCharacter then
+        return
+    end
 
-        local function updatePlayerESP()
-            local localCharacter = game.Players.LocalPlayer.Character
-            if not localCharacter then
-                return
-            end
-        
-            for _, player in ipairs(game.Players:GetPlayers()) do
-                if player ~= game.Players.LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
-                    local distance = (localCharacter.Head.Position - player.Character.Head.Position).Magnitude
-                    local billboardGui = player.Character.Head:FindFirstChild("PlayerBillboardGui")
-                    if billboardGui then
-                        billboardGui.PlayerNameLabel.Text = player.Name .. "\nDistance: " .. math.floor(distance)
-                        billboardGui.PlayerNameLabel.TextColor3 = Color3.new(1, 0, 0) -- Set the text color to red
-                        billboardGui.PlayerNameLabel.Visible = statusButton.Text == "On" -- Update visibility based on StatusButton
-                    else
-                        createBillboardGuiForPlayer(player, distance)
-                    end
-                end
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        if player ~= game.Players.LocalPlayer and player.Character and player.Character:FindFirstChild("Head") then
+            local distance = (localCharacter.Head.Position - player.Character.Head.Position).Magnitude
+            local billboardGui = player.Character.Head:FindFirstChild("PlayerBillboardGui")
+            if billboardGui then
+                billboardGui.PlayerNameLabel.Text = player.Name .. "\nDistance: " .. math.floor(distance)
+                billboardGui.PlayerNameLabel.TextColor3 = Color3.new(1, 0, 0) -- Set the text color to red
+                billboardGui.PlayerNameLabel.Visible = statusButton.Text == "On" -- Update visibility based on StatusButton
+            else
+                createBillboardGuiForPlayer(player, distance)
             end
         end
+    end
+end
 
-        updatePlayerESP()
+-- Call updatePlayerESP() initially and then schedule it to be called every 0.01 seconds
+updatePlayerESP()
 game:GetService("RunService").Heartbeat:Connect(function()
     updatePlayerESP()
 end)
-      
-    end
-  })
-  
-Toggle:Set(false)
-    
-    Toggle:Callback(function(Value)
 
+-- Now, you can add functionality to the button, for example:
+local function onButtonClicked()
+    if statusButton.Text == "Off" then
+        statusButton.Text = "On"
+        -- Add code to enable the player ESP here
+    else
+        statusButton.Text = "Off"
+        -- Add code to disable the player ESP here
+        
+        -- Remove BillboardGui for each player's head when disabling the ESP
         for _, player in ipairs(game.Players:GetPlayers()) do
             local billboardGui = player.Character and player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("PlayerBillboardGui")
             if billboardGui then
@@ -492,6 +134,13 @@ Toggle:Set(false)
             end
         end
     end
-    
-    end)
+    -- Update the visibility of BillboardGui elements after clicking the button
+    for _, player in ipairs(game.Players:GetPlayers()) do
+        local billboardGui = player.Character and player.Character:FindFirstChild("Head") and player.Character.Head:FindFirstChild("PlayerBillboardGui")
+        if billboardGui then
+            billboardGui.PlayerNameLabel.Visible = statusButton.Text == "On"
+        end
+    end
+end
 
+statusButton.MouseButton1Click:Connect(onButtonClicked)

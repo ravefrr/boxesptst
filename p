@@ -209,8 +209,10 @@ closeButton.MouseButton1Click:Connect(onCloseButtonClicked)
 local isMinimized = false
 local function onMinimizeButtonClicked()
     isMinimized = not isMinimized
-    local targetPosition = isMinimized and UDim2.new(0, 0, 0, -150) or UDim2.new(0, 0, 0, 0)
-    holder:TweenPosition(targetPosition, Enum.EasingDirection.Out, Enum.EasingStyle.Quad, 0.5, true)
+    holder.Size = isMinimized and UDim2.new(0, 300, 0, 30) or UDim2.new(0, 300, 0, 200)
+    infoLabel.Visible = not isMinimized
+    statusLabel.Visible = not isMinimized
+    statusButton.Visible = not isMinimized
 end
 
 minimizeButton.MouseButton1Click:Connect(onMinimizeButtonClicked)

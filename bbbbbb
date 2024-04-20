@@ -31,10 +31,6 @@ holder.ClipsDescendants = true -- clip content to the frame
 holder.AnchorPoint = Vector2.new(0.5, 0.5) -- set anchor point to center
 holder.Position = UDim2.new(0.5, 0, 0.5, 0) -- reposition after setting anchor point
 holder.ZIndex = 2 -- set ZIndex to ensure it's above other GUI elements
-frame = script.Parent.DraggableFrame
-Frame.Draggable = true
-Frame.Selectable = true
-Frame.Active = true
 
 -- Create rounded corners for the frame
 local corner = Instance.new("UICorner")
